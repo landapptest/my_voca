@@ -13,11 +13,11 @@ class SettingProvider with ChangeNotifier {
 
   Future<void> loadSetting() async {
     final prefs = await SharedPreferences.getInstance();
-    bool notificationEngabled = prefs.getBool('notificationEnabled') ?? true;
+    bool notificationEnabled = prefs.getBool('notificationEnabled') ?? true;
     String notificationFrequency = prefs.getString('notificationFrequency') ?? '30min';
 
     _setting = Setting(
-      notificationEnabled: notificationEngabled,
+      notificationEnabled: notificationEnabled,
       notificationFrequency: notificationFrequency,
     );
     notifyListeners();
