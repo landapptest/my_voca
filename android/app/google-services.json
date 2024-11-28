@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "163650984826",
+    "firebase_url": "https://my-voca-6ffe6-default-rtdb.firebaseio.com",
+    "project_id": "my-voca-6ffe6",
+    "storage_bucket": "my-voca-6ffe6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163650984826:android:87ec21ef25502d105814c3",
+        "android_client_info": {
+          "package_name": "com.example.my_voca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApgD9ML-d3g1PsVOvfsgfNOwecxtxUajs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
