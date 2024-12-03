@@ -15,7 +15,6 @@ class Word {
 
   Map<String, dynamic> toMap() {
     return {
-      'eng': eng,
       'kor': kor,
       'isFavorite': isFavorite,
     };
