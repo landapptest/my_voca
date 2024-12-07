@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_voca/models/setting_model.dart';
-import 'package:my_voca/providers/word_provider.dart';
 import 'package:my_voca/providers/notification_provider.dart';
+import 'package:my_voca/providers/word_provider.dart';
 
 class SettingProvider with ChangeNotifier {
   late Setting _setting;
-  final NotificationService _notificationService = NotificationService();
+  final NotificationProvider _notificationProvider = NotificationProvider();
 
   Setting get setting => _setting;
 
@@ -40,7 +40,7 @@ class SettingProvider with ChangeNotifier {
     if (notificationEnabled) {
       _scheduleNotifications();
     } else {
-      _notificationService.cancelAllNotifications();
+      _notificationProvider.cancelAllNotifications();
     }
     notifyListeners();
   }
@@ -48,9 +48,9 @@ class SettingProvider with ChangeNotifier {
   void _scheduleNotifications() {
     Duration interval = _getNotificationInterval(_setting.notificationFrequency);
 
+    // WordProvider에서 즐겨찾기 단어 목록 가져오기
     WordProvider wordProvider = WordProvider();
-    _notificationService.sendRandomWordNotification(wordProvider, interval);
-
+    _notificationProvider.sendRandomWordNotification(wordProvider.favoriteWords, interval);
   }
 
   Duration _getNotificationInterval(String frequency) {

@@ -3,11 +3,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:my_voca/models/word_model.dart';
 import 'package:my_voca/providers/word_provider.dart';
 
-class NotificationService {
+class NotificationProvider {
   FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  NotificationService() {
+  NotificationProvider() {
     _initializeNotifications();
   }
 
@@ -46,8 +46,7 @@ class NotificationService {
     _flutterLocalNotificationsPlugin.cancelAll();
   }
 
-  void sendRandomWordNotification(WordProvider wordProvider, Duration interval) {
-    List<Word> favoriteWords = wordProvider.favoriteWords;
+  void sendRandomWordNotification(List<Word> favoriteWords, Duration interval) {
     if (favoriteWords.isNotEmpty) {
       Word randomWord = favoriteWords[Random().nextInt(favoriteWords.length)];
       scheduleNotification("오늘의 단어", "${randomWord.eng}: ${randomWord.kor}", interval);
