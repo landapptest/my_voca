@@ -3,8 +3,11 @@ import 'package:my_voca/views/word_list_page.dart';
 import 'package:my_voca/views/favorite_page.dart';
 import 'package:my_voca/views/quiz_page.dart';
 import 'package:my_voca/views/setting_page.dart';
+import 'package:my_voca/views/search_page.dart';
 
 class HomePage extends StatelessWidget {
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +22,40 @@ class HomePage extends StatelessWidget {
               },
               icon: Icon(Icons.settings)),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                labelText: '검색어 입력',
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    if (_searchController.text.isNotEmpty) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SearchPage(query: _searchController.text),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(query: value),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
+        ),
       ),
       body: Center(
         child: Column(
