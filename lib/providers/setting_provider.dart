@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_voca/models/setting_model.dart';
 import 'package:my_voca/providers/notification_provider.dart';
-import 'package:my_voca/providers/word_provider.dart';
 
 class SettingProvider with ChangeNotifier {
   late Setting _setting;
@@ -25,6 +24,7 @@ class SettingProvider with ChangeNotifier {
     );
 
     if (notificationEnabled) {
+      _sendImmediateNotification();
       _scheduleNotifications();
     }
     notifyListeners();
@@ -38,6 +38,7 @@ class SettingProvider with ChangeNotifier {
     _setting = Setting(notificationEnabled: notificationEnabled, notificationFrequency: notificationFrequency);
 
     if (notificationEnabled) {
+      _sendImmediateNotification();
       _scheduleNotifications();
     } else {
       _notificationProvider.cancelAllNotifications();
@@ -46,15 +47,11 @@ class SettingProvider with ChangeNotifier {
   }
 
   void _scheduleNotifications() {
-    Duration interval = _getNotificationInterval(_setting.notificationFrequency);
-
-    WordProvider wordProvider = WordProvider();
-    _notificationProvider.sendRandomWordNotification(wordProvider.favoriteWords, interval);
+    _notificationProvider.sendRandomWordNotification();
   }
 
-  void sendTestNotification() {
-    // 테스트용 알림 즉시 전송
-    _notificationProvider.sendImmediateNotification("테스트 알림", "알림 테스트 중입니다.");
+  void _sendImmediateNotification() {
+    _notificationProvider.sendRandomWordNotification();
   }
 
   Duration _getNotificationInterval(String frequency) {

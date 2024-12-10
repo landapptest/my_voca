@@ -27,7 +27,6 @@ class WordProvider with ChangeNotifier {
   Future<void> fetchWords() async {
     final prefs = await SharedPreferences.getInstance();
 
-    // 1. 로컬 즐겨찾기 단어 로드
     print("Loading favorite words from SharedPreferences...");
     String? localFavorites = prefs.getString('favorite_words');
     if (localFavorites != null) {
@@ -43,7 +42,6 @@ class WordProvider with ChangeNotifier {
       print("No local favorite words found.");
     }
 
-    // 2. Firebase 데이터 로드
     print("Fetching words from Firebase...");
     try {
       final snapshot = await _userWordsRef.get();
@@ -56,7 +54,6 @@ class WordProvider with ChangeNotifier {
 
         print("Fetched words from Firebase: $_words");
 
-        // 3. 즐겨찾기 단어 필터링 및 로컬 저장
         List<Word> favorites = _words.where((word) => word.isFavorite).toList();
         String encodedFavorites = jsonEncode(favorites.map((word) => word.toMap()).toList());
         await prefs.setString('favorite_words', encodedFavorites);
@@ -85,7 +82,6 @@ class WordProvider with ChangeNotifier {
     print("Toggling favorite status for: $word");
     await _userWordsRef.child(word.eng).update({'isFavorite': word.isFavorite});
 
-    // 즐겨찾기 단어를 로컬에 저장
     final prefs = await SharedPreferences.getInstance();
     List<Word> favorites = _words.where((word) => word.isFavorite).toList();
     String encodedFavorites = jsonEncode(favorites.map((word) => word.toMap()).toList());

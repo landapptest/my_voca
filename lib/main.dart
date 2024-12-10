@@ -13,7 +13,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  // 알림 권한 요청
   await Permission.notification.request();
 
   runApp(MyApp());

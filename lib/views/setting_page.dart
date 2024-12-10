@@ -35,12 +35,6 @@ class SettingPage extends StatelessWidget {
                   _showFrequencyDialog(context);
                 },
               ),
-              ElevatedButton(
-                onPressed: () {
-                  settingProvider.sendTestNotification();
-                },
-                child: Text('알림 테스트'),
-              ),
             ],
           ),
           Padding(

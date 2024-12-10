@@ -16,7 +16,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // WordProvider의 fetchWords를 호출하여 데이터를 로드
     Future.microtask(() {
       final wordProvider = Provider.of<WordProvider>(context, listen: false);
       wordProvider.fetchWords();
