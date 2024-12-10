@@ -48,9 +48,13 @@ class SettingProvider with ChangeNotifier {
   void _scheduleNotifications() {
     Duration interval = _getNotificationInterval(_setting.notificationFrequency);
 
-    // WordProvider에서 즐겨찾기 단어 목록 가져오기
     WordProvider wordProvider = WordProvider();
     _notificationProvider.sendRandomWordNotification(wordProvider.favoriteWords, interval);
+  }
+
+  void sendTestNotification() {
+    // 테스트용 알림 즉시 전송
+    _notificationProvider.sendImmediateNotification("테스트 알림", "알림 테스트 중입니다.");
   }
 
   Duration _getNotificationInterval(String frequency) {

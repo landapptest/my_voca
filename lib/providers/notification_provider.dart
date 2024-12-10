@@ -5,7 +5,7 @@ import 'package:my_voca/providers/word_provider.dart';
 
 class NotificationProvider {
   FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin();
 
   NotificationProvider() {
     _initializeNotifications();
@@ -13,9 +13,9 @@ class NotificationProvider {
 
   void _initializeNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
+    AndroidInitializationSettings('app_icon');
     const InitializationSettings initializationSettings =
-        InitializationSettings(
+    InitializationSettings(
       android: initializationSettingsAndroid,
     );
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
@@ -23,7 +23,7 @@ class NotificationProvider {
 
   void scheduleNotification(String title, String body, Duration interval) {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
+    AndroidNotificationDetails(
       'channelId',
       'channelName',
       importance: Importance.max,
@@ -31,7 +31,7 @@ class NotificationProvider {
       showWhen: false,
     );
     const NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
+    NotificationDetails(android: androidPlatformChannelSpecifics);
 
     _flutterLocalNotificationsPlugin.periodicallyShow(
       0,
@@ -51,5 +51,26 @@ class NotificationProvider {
       Word randomWord = favoriteWords[Random().nextInt(favoriteWords.length)];
       scheduleNotification("오늘의 단어", "${randomWord.eng}: ${randomWord.kor}", interval);
     }
+  }
+
+  // 여기 추가
+  void sendImmediateNotification(String title, String body) {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'channelId',
+      'channelName',
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: true,
+    );
+    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    _flutterLocalNotificationsPlugin.show(
+      0,
+      title,
+      body,
+      platformChannelSpecifics,
+    );
   }
 }

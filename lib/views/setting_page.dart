@@ -14,7 +14,7 @@ class SettingPage extends StatelessWidget {
         title: Text('설정'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // 위-아래로 공간 분배
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             children: [
@@ -35,14 +35,20 @@ class SettingPage extends StatelessWidget {
                   _showFrequencyDialog(context);
                 },
               ),
+              ElevatedButton(
+                onPressed: () {
+                  settingProvider.sendTestNotification();
+                },
+                child: Text('알림 테스트'),
+              ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20.0), // 하단 여백 추가
+            padding: const EdgeInsets.only(bottom: 20.0),
             child: ElevatedButton.icon(
               onPressed: () async {
-                await authProvider.signOut(); // 로그아웃 처리
-                Navigator.of(context).pushReplacementNamed('/login'); // 로그인 화면으로 이동
+                await authProvider.signOut();
+                Navigator.of(context).pushReplacementNamed('/login');
               },
               icon: Icon(Icons.logout),
               label: Text('로그아웃'),
