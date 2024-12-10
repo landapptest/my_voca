@@ -10,6 +10,7 @@ class AuthProvider with ChangeNotifier {
   AuthProvider() {
     _auth.authStateChanges().listen((User? user) {
       _user = user;
+      print("Auth state changed. Current user: ${_user?.email}");
       notifyListeners();
     });
   }

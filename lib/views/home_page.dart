@@ -4,8 +4,25 @@ import 'package:my_voca/views/favorite_page.dart';
 import 'package:my_voca/views/quiz_page.dart';
 import 'package:my_voca/views/setting_page.dart';
 import 'package:my_voca/views/search_page.dart';
+import 'package:provider/provider.dart';
+import 'package:my_voca/providers/word_provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    // WordProvider의 fetchWords를 호출하여 데이터를 로드
+    Future.microtask(() {
+      final wordProvider = Provider.of<WordProvider>(context, listen: false);
+      wordProvider.fetchWords();
+    });
+  }
+
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -15,12 +32,13 @@ class HomePage extends StatelessWidget {
         title: Text('테스트'),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SettingPage()),
-                );
-              },
-              icon: Icon(Icons.settings)),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => SettingPage()),
+              );
+            },
+            icon: Icon(Icons.settings),
+          ),
         ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(60),

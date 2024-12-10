@@ -1,35 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:my_voca/models/setting_model.dart';
 import 'package:provider/provider.dart';
 import 'package:my_voca/providers/setting_provider.dart';
+import 'package:my_voca/providers/auth_provider.dart';
 
 class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingProvider = Provider.of<SettingProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('설정'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, // 위-아래로 공간 분배
         children: [
-          SwitchListTile(
-            title: Text('알림 활성화'),
-            value: settingProvider.setting.notificationEnabled,
-            onChanged: (value) {
-              settingProvider.updateSetting(
-                value,
-                settingProvider.setting.notificationFrequency,
-              );
-            },
+          Column(
+            children: [
+              SwitchListTile(
+                title: Text('알림 활성화'),
+                value: settingProvider.setting.notificationEnabled,
+                onChanged: (value) {
+                  settingProvider.updateSetting(
+                    value,
+                    settingProvider.setting.notificationFrequency,
+                  );
+                },
+              ),
+              ListTile(
+                title: Text('알림 주기'),
+                subtitle: Text(settingProvider.setting.notificationFrequency),
+                onTap: () {
+                  _showFrequencyDialog(context);
+                },
+              ),
+            ],
           ),
-          ListTile(
-            title: Text('알림 주기'),
-            subtitle: Text(settingProvider.setting.notificationFrequency),
-            onTap: () {
-              _showFrequencyDialog(context);
-            },
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20.0), // 하단 여백 추가
+            child: ElevatedButton.icon(
+              onPressed: () async {
+                await authProvider.signOut(); // 로그아웃 처리
+                Navigator.of(context).pushReplacementNamed('/login'); // 로그인 화면으로 이동
+              },
+              icon: Icon(Icons.logout),
+              label: Text('로그아웃'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+              ),
+            ),
           ),
         ],
       ),
@@ -38,7 +60,7 @@ class SettingPage extends StatelessWidget {
 
   void _showFrequencyDialog(BuildContext context) {
     final settingProvider =
-        Provider.of<SettingProvider>(context, listen: false);
+    Provider.of<SettingProvider>(context, listen: false);
 
     showDialog(
       context: context,
