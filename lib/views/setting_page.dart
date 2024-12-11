@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:my_voca/providers/setting_provider.dart';
 import 'package:my_voca/providers/auth_provider.dart';
+import 'package:my_voca/views/login_page.dart';
 
 class SettingPage extends StatelessWidget {
   @override
@@ -42,7 +43,11 @@ class SettingPage extends StatelessWidget {
             child: ElevatedButton.icon(
               onPressed: () async {
                 await authProvider.signOut();
-                Navigator.of(context).pushReplacementNamed('/login');
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                      (route) => false,
+                );
               },
               icon: Icon(Icons.logout),
               label: Text('로그아웃'),

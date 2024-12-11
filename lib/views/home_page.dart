@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('테스트'),
+        title: Text('My Voca'),
         actions: [
           IconButton(
             onPressed: () {
@@ -85,7 +85,16 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: Text('전체 단어장'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                textStyle: TextStyle(fontSize: 18),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
             ),
+            SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
@@ -93,7 +102,16 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: Text('즐겨찾기'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.green,
+                textStyle: TextStyle(fontSize: 18),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
             ),
+            SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
@@ -101,6 +119,14 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: Text('퀴즈'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.purple,
+                textStyle: TextStyle(fontSize: 18),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
             ),
           ],
         ),
