@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50], // 배경 색상 추가
       appBar: AppBar(
         title: Text('My Voca'),
         actions: [
@@ -78,53 +79,68 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => WordListPage()),
-                );
-              },
-              child: Text('전체 단어장'),
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.blue,
-                textStyle: TextStyle(fontSize: 18),
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => WordListPage()),
+                  );
+                },
+                icon: Icon(Icons.book),
+                label: Text('전체 단어장'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                  textStyle: TextStyle(fontSize: 18),
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => FavoritePage()),
-                );
-              },
-              child: Text('즐겨찾기'),
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.green,
-                textStyle: TextStyle(fontSize: 18),
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+            SizedBox(height: 24),
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => FavoritePage()),
+                  );
+                },
+                icon: Icon(Icons.favorite),
+                label: Text('즐겨찾기'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  textStyle: TextStyle(fontSize: 18),
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => QuizPage()),
-                );
-              },
-              child: Text('퀴즈'),
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.purple,
-                textStyle: TextStyle(fontSize: 18),
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+            SizedBox(height: 24),
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => QuizPage()),
+                  );
+                },
+                icon: Icon(Icons.question_answer),
+                label: Text('퀴즈'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.purple,
+                  textStyle: TextStyle(fontSize: 18),
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
               ),
             ),

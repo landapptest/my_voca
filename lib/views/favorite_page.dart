@@ -15,23 +15,43 @@ class FavoritePage extends StatelessWidget {
       body: favoriteWords.isEmpty
           ? Center(child: Text('즐겨찾기한 단어가 없습니다.'))
           : ListView.builder(
-              itemCount: favoriteWords.length,
-              itemBuilder: (context, index) {
-                final word = favoriteWords[index];
-                return ListTile(
-                  title: Text(word.eng),
-                  subtitle: Text(word.kor),
-                  trailing: IconButton(
-                    icon: Icon(
-                      word.isFavorite ? Icons.star : Icons.star_border,
-                    ),
-                    onPressed: () {
-                      wordProvider.toggleFavorite(word);
-                    },
-                  ),
-                );
-              },
+        itemCount: favoriteWords.length,
+        itemBuilder: (context, index) {
+          final word = favoriteWords[index];
+          return Card(
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16), // 카드 간의 여백
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
+            child: ListTile(
+              title: Text(
+                word.eng,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                word.kor,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+              ),
+              trailing: IconButton(
+                icon: Icon(
+                  word.isFavorite ? Icons.star : Icons.star_border,
+                  color: Colors.yellow,
+                ),
+                onPressed: () {
+                  wordProvider.toggleFavorite(word);
+                },
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

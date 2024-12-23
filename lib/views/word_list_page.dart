@@ -24,16 +24,36 @@ class WordListPage extends StatelessWidget {
         itemCount: wordProvider.words.length,
         itemBuilder: (context, index) {
           final word = wordProvider.words[index];
-          return ListTile(
-            title: Text(word.eng),
-            subtitle: Text(word.kor),
-            trailing: IconButton(
-              icon: Icon(
-                word.isFavorite ? Icons.star : Icons.star_border,
+          return Card(
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16), // 카드 간의 여백
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: ListTile(
+              title: Text(
+                word.eng,
+                style: TextStyle(
+                  fontSize: 22, // 단어 텍스트 크기 조정
+                  fontWeight: FontWeight.bold, // 굵은 글씨
+                ),
               ),
-              onPressed: () {
-                wordProvider.toggleFavorite(word);
-              },
+              subtitle: Text(
+                word.kor,
+                style: TextStyle(
+                  fontSize: 16, // 뜻 텍스트 크기 조정
+                  color: Colors.grey[600], // 색상 조정
+                ),
+              ),
+              trailing: IconButton(
+                icon: Icon(
+                  word.isFavorite ? Icons.star : Icons.star_border,
+                  color: Colors.yellow, // 스타 아이콘 색상
+                ),
+                onPressed: () {
+                  wordProvider.toggleFavorite(word);
+                },
+              ),
             ),
           );
         },
@@ -45,42 +65,48 @@ class WordListPage extends StatelessWidget {
     String eng = '';
     String kor = '';
 
-    showDialog(context: context, builder: (context) {
-      return AlertDialog(
-        title: Text('단어 추가'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: '단어'),
-              onChanged: (value) {
-                eng = value;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('단어 추가'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: '단어'),
+                onChanged: (value) {
+                  eng = value;
+                },
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: '뜻'),
+                onChanged: (value) {
+                  kor = value;
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
               },
+              child: Text('취소'),
             ),
-            TextField(
-              decoration: InputDecoration(labelText: '뜻'),
-              onChanged: (value) {
-                kor = value;
+            TextButton(
+              onPressed: () {
+                if (eng.isNotEmpty && kor.isNotEmpty) {
+                  Provider.of<WordProvider>(context, listen: false)
+                      .addWord(eng, kor);
+                  Navigator.of(context).pop();
+                }
               },
+              child: Text('추가'),
             ),
           ],
-        ),
-        actions: [
-          TextButton(onPressed: () {
-            Navigator.of(context).pop();
-          }, child: Text('취소'),
-          ),
-          TextButton(onPressed: () {
-            if (eng.isNotEmpty && kor.isNotEmpty) {
-              Provider.of<WordProvider>(context, listen: false)
-                  .addWord(eng, kor);
-              Navigator.of(context).pop();
-            }
-          }, child: Text('추가'),
-          ),
-        ],
-      );
-    },
+        );
+      },
     );
   }
 }
