@@ -1,0 +1,17 @@
+{
+  "name": "genkit-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "description": "",
+  "dependencies": {
+    "@genkit-ai/googleai": "^0.9.12",
+    "genkit": "^0.9.12"
+  }
+}
